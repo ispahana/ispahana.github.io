@@ -118,6 +118,12 @@
       <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
         Modeling NYC Taxi Profitability using a Leontief-style Model
       </h1>
+      <div class="text-center pb-8">
+        <time datetime="2021-05-20T17:49:57-04:00" 
+              class="text-white text-lg opacity-90">
+          May 20, 2021
+        </time>
+      </div>
     </span>
   </header>
   <div class="max-w-4xl mx-auto mt-8 mb-2">
@@ -127,9 +133,10 @@
   </div>
   
   <div class="max-w-2xl px-6 pt-6 pb-16 mx-auto prose dark:prose-invert dark:text-white">
-    <p>This blog post is joint work with <a href="https://www.aapelivuorinen.com/">Aapeli Vuorinen</a>, added here when I set up the blog.</p>
+    <h1 id="modeling-nyc-taxi-profitability-using-a-leontief-style-model">Modeling NYC Taxi Profitability using a Leontief-style Model</h1>
+<p>This blog post is joint work with <a href="https://www.aapelivuorinen.com/">Aapeli Vuorinen</a>, added here when I set up the blog.</p>
 <p>Here&rsquo;s a quick peek at the output of the model. The areas are shaded on a logarithmic scale according to their profitability. Hover over an area to see information about it.</p>
-<!-- raw HTML omitted -->
+<iframe src="/map.html" width="100%" height="500px" title="Taxi profitability map by Aapeli"></iframe>
 <p><a href="preview.jpg">Click here</a> for a preview if the map doesn&rsquo;t load.</p>
 <p>It&rsquo;s interesting to see what one would expect: Manhattan is profitable and so are the areas around airports: JFK (the large area in the bottom right hand corner) and LaGuardia. Note that the profitability does not really translate to a real dollar amount, it&rsquo;s more an arbitrary metric.</p>
 <h2 id="background">Background</h2>
@@ -139,41 +146,41 @@
 <p>There&rsquo;s quite a few ways of looking at this and trying to answer such an open ended question. For example, one may look at the time-series of how often a driver gets rides from different areas, and so on. However, the model I decided to go for was based rather on trying to understand how the destination area influenced the profitability of the current area. For example, suppose a taxi takes a passenger from Downtown Manhattan to somewhere in Brooklyn, but — for the sake of argument — riders in Downtown Manhattan tip a lot more than those in Brooklyn; then obviously this one-time trip may lead the driver to an area with low profitability. We want to capture this kind of dynamic and so chose a model where the profitability of a given area is influenced by the profitability of probable future locations.</p>
 <p>To get some rough metric for profitability, we let the profitability of a ride be the total fare divided by the duration in minutes. I had to do some cleaning to get rid of data with very low durations (due to inaccuracy in timing).</p>
 <h2 id="our-model">Our model</h2>
-<p>Let $\mathcal{S}$ be the set of (pickup/dropoff) areas, and let $\mathcal{T}$ be the set of all trips. For $i,j\in\mathcal{S}$, $\mathcal{T}_{i,j}$ to be the set of trips from $i$ to $j$ and $\mathcal{T}_i$ to be the set of trips originating from $i\in\mathcal{S}$. For a trip $e\in\mathcal{T}$, let $p_e$ be its profitability.</p>
+<p>Let $$\mathcal{S}$$ be the set of (pickup/dropoff) areas, and let $$\mathcal{T}$$ be the set of all trips. For $$i,j\in\mathcal{S}$$, $$\mathcal{T}_{i,j}$$ to be the set of trips from $$i$$ to $$j$$ and $$\mathcal{T}_i$$ to be the set of trips originating from $$i\in\mathcal{S}$$. For a trip $$e\in\mathcal{T}$$, let $$p_e$$ be its profitability.</p>
 <p>We now define</p>
-<p>$
+<p>$$
 q_{i,j}=\frac{1}{|T_{i,j}|}\sum_{e\in\mathcal{T}_{i,j}}p_e,
-$</p>
-<p>the (empirical) expected profitability of a trip from $i$ to $j$. Similarly we define</p>
-<p>$
+$$</p>
+<p>the (empirical) expected profitability of a trip from $$i$$ to $$j$$. Similarly we define</p>
+<p>$$
 q_i=\frac{1}{|\mathcal{T}<em>i|}\sum</em>{e\in\mathcal{T}_i}p_e,
-$</p>
-<p>the expected profitability of a trip originating from $i$.</p>
+$$</p>
+<p>the expected profitability of a trip originating from $$i$$.</p>
 <p>Finally define</p>
-<p>$
+<p>$$
 w_{i,j}=\frac{|\mathcal{T}_{i,j}|}{|\mathcal{T}_i|},
-$</p>
-<p>the expectation of the proportion of trips originating from $i$ that go to $j$.</p>
-<p>Now let $p_i$ for $i\in\mathcal{S}$ be the (expected) profitability of an area. We wish for the vector of profitabilities to satisfy</p>
-<p>$
+$$</p>
+<p>the expectation of the proportion of trips originating from $$i$$ that go to $$j$$.</p>
+<p>Now let $$p_i$$ for $$i\in\mathcal{S}$$ be the (expected) profitability of an area. We wish for the vector of profitabilities to satisfy</p>
+<p>$$
 p_i=\sum_{j\in\mathcal{S}}w_{i,j}(q_{i,j}+\gamma p_j),
-$</p>
-<p>for some discounting factor $\gamma\in(0,1)$. This says that the profitability of an area is the weighted average (by proportion of trips) profitability of destination areas plus some discounting factor times the profitability of that area. So if an area is average but often leads to a very profitable area, then the first area is also pretty good in the scheme of things.</p>
+$$</p>
+<p>for some discounting factor $$\gamma\in(0,1)$$. This says that the profitability of an area is the weighted average (by proportion of trips) profitability of destination areas plus some discounting factor times the profitability of that area. So if an area is average but often leads to a very profitable area, then the first area is also pretty good in the scheme of things.</p>
 <p>Simplifying this, we can also write</p>
-<p>$
+<p>$$
 p_i=q_i+\gamma\sum_{j\in S}w_{i,j}p_j,
-$</p>
+$$</p>
 <p>so the profitability of an area is the average profitability of outgoing trips plus the discounted weighted average profitability of destination areas.</p>
-<p>Writing $\mathbf{W}$ as the matrix of $w_{i,j}$, and similarly $\mathbf{p}$ and $\mathbf{q}$ for the column vectors of $p_i$ and $q_i$, we get the matrix equation</p>
-<p>$
+<p>Writing $$\mathbf{W}$$ as the matrix of $$w_{i,j}$$, and similarly $$\mathbf{p}$$ and $$\mathbf{q}$$ for the column vectors of $$p_i$$ and $$q_i$$, we get the matrix equation</p>
+<p>$$
 \mathbf{p}=\mathbf{q}+\gamma\mathbf{W}\mathbf{p},
-$</p>
+$$</p>
 <p>and rearranging, we have</p>
-<p>$
+<p>$$
 \mathbf{p}=(\mathbf{I}-\gamma\mathbf{W})^{-1}\mathbf{q},
-$</p>
-<p>where $\mathbf{I}$ is the identity matrix of appropriate size and the inverse is the matrix inverse.</p>
-<p>Note that we need $\gamma&lt;1$ here (instead of having $\gamma=1$) because by construction, $\mathbf{W}$ is a <a href="https://en.wikipedia.org/wiki/Stochastic_matrix">stochastic matrix</a>, so $\mathbf{I}-\mathbf{W}$ has vanishing row sums, so the rows are linearly dependent and $\mathbf{I}-\mathbf{W}$ is singular. One can also see this intuitively from the model: in the presence of cycles — ways of starting from one area and then getting back there — the the weighted sum for $p_i$ gives an infinite recursion, and one can see that having no discounting would be problematic.</p>
+$$</p>
+<p>where $$\mathbf{I}$$ is the identity matrix of appropriate size and the inverse is the matrix inverse.</p>
+<p>Note that we need $$\gamma&lt;1$$ here (instead of having $$\gamma=1$$) because by construction, $$\mathbf{W}$$ is a <a href="https://en.wikipedia.org/wiki/Stochastic_matrix">stochastic matrix</a>, so $$\mathbf{I}-\mathbf{W}$$ has vanishing row sums, so the rows are linearly dependent and $$\mathbf{I}-\mathbf{W}$$ is singular. One can also see this intuitively from the model: in the presence of cycles — ways of starting from one area and then getting back there — the the weighted sum for $$p_i$$ gives an infinite recursion, and one can see that having no discounting would be problematic.</p>
 <p>This kind of model is called a <a href="https://en.wikipedia.org/wiki/Input%E2%80%93output_model">Leontief Input-Output model</a>.</p>
 <h2 id="the-nitty-gritty">The nitty gritty</h2>
 <p>I loaded the data into a Jupyter notebook and created a Pandas dataframe to hold the taxi data. After a few simple <code>groupby</code>s and <code>agg</code>s, I got the data I needed, put those in a Numpy matrix, and did a quick matrix inverse with <code>numpy.linalg.inv</code> to get the results.</p>
@@ -224,7 +231,7 @@ $</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  out.sql <span style="color:#ae81ff">\
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  taxi_zones.shp
 </span></span><span style="display:flex;"><span>cat out.sql | psql
-</span></span></code></pre></div><p>Finally I exported the $\textbf{p}$ vector into PostGIS and did a spatial join against the shapefiles from T&amp;LC&rsquo;s site to get the following dataset.</p>
+</span></span></code></pre></div><p>Finally I exported the $$\textbf{p}$$ vector into PostGIS and did a spatial join against the shapefiles from T&amp;LC&rsquo;s site to get the following dataset.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">values</span>(
 </span></span><span style="display:flex;"><span>  locationId int <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>,
 </span></span><span style="display:flex;"><span>  p real <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>

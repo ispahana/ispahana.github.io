@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Taxi profitability map by Aapeli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://pro.a19e.net/maps/maplibre/v2.1.1/maplibre-gl.js"></script>
+  <link href="https://pro.a19e.net/maps/maplibre/v2.1.1/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/@turf/turf@6.3.0/turf.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+  <script>
+    var map = new maplibregl.Map({
+      container: "map",
+      style: "https://pro.a19e.net/maps/nyc/v22.02/style.json",
+      center: [-73.97, 40.72],
+      zoom: 11,
+      minZoom: 10,
+    });
+    map.on("load", function () {
+      map.addSource("taxi_profitability_source", {
+        type: "geojson",
+        data: "taxi_profitability.geojson"
+      });
+      map.addLayer({
+        "id": "taxi_profitability_layer",
+        "type": "fill",
+        "source": "taxi_profitability_source",
+        paint: {
+          "fill-color": "#4670ba",
+          "fill-outline-color": "#224177",
+          "fill-opacity": ["min", 0.9, ["log10", ["get", "p"]]],
+        },
+      });
+    });
+
+    var popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+
+    map.on("mousemove", "taxi_profitability_layer", function (e) {
+      map.getCanvas().style.cursor = "pointer";
+
+      var coordinates = turf.centroid(e.features[0]).geometry.coordinates.slice();
+      var description = "<b>" + e.features[0].properties.zone + "</b><br />Profitability: $" + Math.round(e.features[0].properties.p * 100) / 100 + "<br />Borough: " + e.features[0].properties.borough;
+
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    });
+
+    map.on("mouseleave", "taxi_profitability_layer", function () {
+      map.getCanvas().style.cursor = "";
+      popup.remove();
+    });
+  </script>
+</body>
+
+</html>

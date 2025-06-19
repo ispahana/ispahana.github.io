@@ -14,11 +14,13 @@ tags:
 katex: true
 ---
 
+# Modeling NYC Taxi Profitability using a Leontief-style Model
+
 This blog post is joint work with [Aapeli Vuorinen](https://www.aapelivuorinen.com/), added here when I set up the blog.
 
 Here's a quick peek at the output of the model. The areas are shaded on a logarithmic scale according to their profitability. Hover over an area to see information about it.
 
-<iframe src="map.html" width="100%" height="500px" title="Taxi profitability map by Aapeli"></iframe>
+<iframe src="/map.html" width="100%" height="500px" title="Taxi profitability map by Aapeli"></iframe>
 
 [Click here](preview.jpg) for a preview if the map doesn't load.
 
@@ -38,61 +40,61 @@ To get some rough metric for profitability, we let the profitability of a ride b
 
 ## Our model
 
-Let $\mathcal{S}$ be the set of (pickup/dropoff) areas, and let $\mathcal{T}$ be the set of all trips. For $i,j\in\mathcal{S}$, $\mathcal{T}_{i,j}$ to be the set of trips from $i$ to $j$ and $\mathcal{T}_i$ to be the set of trips originating from $i\in\mathcal{S}$. For a trip $e\in\mathcal{T}$, let $p_e$ be its profitability.
+Let $$\mathcal{S}$$ be the set of (pickup/dropoff) areas, and let $$\mathcal{T}$$ be the set of all trips. For $$i,j\in\mathcal{S}$$, $$\mathcal{T}_{i,j}$$ to be the set of trips from $$i$$ to $$j$$ and $$\mathcal{T}_i$$ to be the set of trips originating from $$i\in\mathcal{S}$$. For a trip $$e\in\mathcal{T}$$, let $$p_e$$ be its profitability.
 
 We now define
 
-$
+$$
 q_{i,j}=\frac{1}{|T_{i,j}|}\sum_{e\in\mathcal{T}_{i,j}}p_e,
-$
+$$
 
-the (empirical) expected profitability of a trip from $i$ to $j$. Similarly we define
+the (empirical) expected profitability of a trip from $$i$$ to $$j$$. Similarly we define
 
-$
+$$
 q_i=\frac{1}{|\mathcal{T}_i|}\sum_{e\in\mathcal{T}_i}p_e,
-$
+$$
 
-the expected profitability of a trip originating from $i$.
+the expected profitability of a trip originating from $$i$$.
 
 Finally define
 
-$
+$$
 w_{i,j}=\frac{|\mathcal{T}_{i,j}|}{|\mathcal{T}_i|},
-$
+$$
 
-the expectation of the proportion of trips originating from $i$ that go to $j$.
+the expectation of the proportion of trips originating from $$i$$ that go to $$j$$.
 
-Now let $p_i$ for $i\in\mathcal{S}$ be the (expected) profitability of an area. We wish for the vector of profitabilities to satisfy
+Now let $$p_i$$ for $$i\in\mathcal{S}$$ be the (expected) profitability of an area. We wish for the vector of profitabilities to satisfy
 
-$
+$$
 p_i=\sum_{j\in\mathcal{S}}w_{i,j}(q_{i,j}+\gamma p_j),
-$
+$$
 
-for some discounting factor $\gamma\in(0,1)$. This says that the profitability of an area is the weighted average (by proportion of trips) profitability of destination areas plus some discounting factor times the profitability of that area. So if an area is average but often leads to a very profitable area, then the first area is also pretty good in the scheme of things.
+for some discounting factor $$\gamma\in(0,1)$$. This says that the profitability of an area is the weighted average (by proportion of trips) profitability of destination areas plus some discounting factor times the profitability of that area. So if an area is average but often leads to a very profitable area, then the first area is also pretty good in the scheme of things.
 
 Simplifying this, we can also write
 
-$
+$$
 p_i=q_i+\gamma\sum_{j\in S}w_{i,j}p_j,
-$
+$$
 
 so the profitability of an area is the average profitability of outgoing trips plus the discounted weighted average profitability of destination areas.
 
-Writing $\mathbf{W}$ as the matrix of $w_{i,j}$, and similarly $\mathbf{p}$ and $\mathbf{q}$ for the column vectors of $p_i$ and $q_i$, we get the matrix equation
+Writing $$\mathbf{W}$$ as the matrix of $$w_{i,j}$$, and similarly $$\mathbf{p}$$ and $$\mathbf{q}$$ for the column vectors of $$p_i$$ and $$q_i$$, we get the matrix equation
 
-$
+$$
 \mathbf{p}=\mathbf{q}+\gamma\mathbf{W}\mathbf{p},
-$
+$$
 
 and rearranging, we have
 
-$
+$$
 \mathbf{p}=(\mathbf{I}-\gamma\mathbf{W})^{-1}\mathbf{q},
-$
+$$
 
-where $\mathbf{I}$ is the identity matrix of appropriate size and the inverse is the matrix inverse.
+where $$\mathbf{I}$$ is the identity matrix of appropriate size and the inverse is the matrix inverse.
 
-Note that we need $\gamma<1$ here (instead of having $\gamma=1$) because by construction, $\mathbf{W}$ is a [stochastic matrix](https://en.wikipedia.org/wiki/Stochastic_matrix), so $\mathbf{I}-\mathbf{W}$ has vanishing row sums, so the rows are linearly dependent and $\mathbf{I}-\mathbf{W}$ is singular. One can also see this intuitively from the model: in the presence of cycles — ways of starting from one area and then getting back there — the the weighted sum for $p_i$ gives an infinite recursion, and one can see that having no discounting would be problematic.
+Note that we need $$\gamma<1$$ here (instead of having $$\gamma=1$$) because by construction, $$\mathbf{W}$$ is a [stochastic matrix](https://en.wikipedia.org/wiki/Stochastic_matrix), so $$\mathbf{I}-\mathbf{W}$$ has vanishing row sums, so the rows are linearly dependent and $$\mathbf{I}-\mathbf{W}$$ is singular. One can also see this intuitively from the model: in the presence of cycles — ways of starting from one area and then getting back there — the the weighted sum for $$p_i$$ gives an infinite recursion, and one can see that having no discounting would be problematic.
 
 This kind of model is called a [Leontief Input-Output model](https://en.wikipedia.org/wiki/Input%E2%80%93output_model).
 
@@ -154,7 +156,7 @@ ogr2ogr -overwrite \
 cat out.sql | psql
 ```
 
-Finally I exported the $\textbf{p}$ vector into PostGIS and did a spatial join against the shapefiles from T&LC's site to get the following dataset.
+Finally I exported the $$\textbf{p}$$ vector into PostGIS and did a spatial join against the shapefiles from T&LC's site to get the following dataset.
 
 ```sql
 create table values(
