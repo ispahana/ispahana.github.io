@@ -22,5 +22,61 @@
       <guid>http://localhost:1313/tags/news/</guid>
       <description></description>
     </item>
+    <item>
+      <title>Gis</title>
+      <link>http://localhost:1313/tags/gis/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/gis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Maps</title>
+      <link>http://localhost:1313/tags/maps/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/maps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mathematics</title>
+      <link>http://localhost:1313/tags/mathematics/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/mathematics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Modeling</title>
+      <link>http://localhost:1313/tags/modeling/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/modeling/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Operations-Research</title>
+      <link>http://localhost:1313/tags/operations-research/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/operations-research/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Postgres</title>
+      <link>http://localhost:1313/tags/postgres/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/postgres/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Probability</title>
+      <link>http://localhost:1313/tags/probability/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/probability/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>http://localhost:1313/tags/projects/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/tags/projects/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

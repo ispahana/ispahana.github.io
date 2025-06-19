@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-06-19T14:03:32-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/my-first-post/</loc>
+    <lastmod>2025-06-19T14:03:32-05:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-06-19T14:03:32-05:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/blog/</loc>
     <lastmod>2022-06-18T11:10:36+08:00</lastmod>
   </url><url>
@@ -12,12 +21,6 @@
     <lastmod>2022-06-18T11:10:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2022-06-18T11:10:36+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2022-06-18T11:10:36+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2022-06-18T11:10:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
@@ -76,5 +79,32 @@
   </url><url>
     <loc>http://localhost:1313/prose/</loc>
     <lastmod>2021-12-18T11:10:36+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/gis/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/maps/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/mathematics/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/modeling/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/nyc-taxi-profitability-leontief/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/operations-research/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/postgres/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/probability/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/projects/</loc>
+    <lastmod>2021-05-20T17:49:57-04:00</lastmod>
   </url>
 </urlset>

@@ -19,6 +19,9 @@ theme = "tailbliss"
 
   ShowPostNavLinks = true
 
+  showDate = true                    # Add this
+  
+  dateFormat = "January 2, 2006"     # Add this (optional)
 [[menu.main]]
 
   name = "Home"

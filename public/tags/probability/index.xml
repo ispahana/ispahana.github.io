@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Probability on Ispahan&#39;s Site</title>
+    <link>http://localhost:1313/tags/probability/</link>
+    <description>Recent content in Probability on Ispahan&#39;s Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 May 2021 17:49:57 -0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/probability/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Modeling NYC Taxi Profitability using a Leontief-style Model</title>
+      <link>http://localhost:1313/posts/nyc-taxi-profitability-leontief/</link>
+      <pubDate>Thu, 20 May 2021 17:49:57 -0400</pubDate>
+      <guid>http://localhost:1313/posts/nyc-taxi-profitability-leontief/</guid>
+      <description>Exploring NYC open data to build a Leontief-style model for taxicab profitability.</description>
+    </item>
+  </channel>
+</rss>

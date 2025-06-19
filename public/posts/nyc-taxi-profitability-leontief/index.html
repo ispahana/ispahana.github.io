@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<title itemprop="name"> Modeling NYC Taxi Profitability using a Leontief-style Model | Ispahan&#39;s Site 
+</title>
+<meta name="description" content="Welcome to my personal website" />
+<meta property="og:title" content="Modeling NYC Taxi Profitability using a Leontief-style Model | Ispahan&#39;s Site" />
+<meta name="twitter:title" content="Modeling NYC Taxi Profitability using a Leontief-style Model | Ispahan&#39;s Site" />
+<meta itemprop="name" content="Modeling NYC Taxi Profitability using a Leontief-style Model | Ispahan&#39;s Site" />
+<meta name="application-name" content="Modeling NYC Taxi Profitability using a Leontief-style Model | Ispahan&#39;s Site" />
+<meta property="og:description"
+      content="Welcome to my personal website" />
+<meta property="og:site_name" content="Ispahan&#39;s Site" />
+<meta property="og:url" content="http://localhost:1313/posts/nyc-taxi-profitability-leontief/" />
+<meta property="og:locale" content="en">
+<meta property="og:image" content="/images/tailbliss-cover.png" />
+<meta property="og:image:secure_url" content="http://localhost:1313/images/tailbliss-cover.png" />
+<meta property="og:type" content="article" />
+
+<script>
+    
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>
+
+
+
+
+<link rel="stylesheet" href="/css/style.min.d4b7d48197766dd5e1da1cccb03d39771f0aa165539e17e532a6a158cd245aa4.css" integrity="sha256-1LfUgZd2bdXh2hzMsD05dx8KoWVTnhflMqahWM0kWqQ=" />
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });
+    });
+</script>
+
+
+
+</head>
+
+<body class="bg-zinc-100 dark:bg-gray-800">
+    <div class="top-0 z-50 w-full text-gray-200 bg-gray-900 border-2 border-gray-900 md:sticky border-b-stone-200/10">
+    <div x-data="{ open: false }" class="flex flex-col max-w-full px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+        <div class="flex flex-row items-center justify-between p-4">
+            <a href="/" class="flex text-gray-100 transition duration-1000 ease-in-out group">
+                <img src="/images/site-logo.svg" class="transition-opacity h-9 w-9 group-hover:opacity-50 group-focus:opacity-70" alt="Ispahan&#39;s Site Logo" />
+                <div class="mt-1 ml-3 text-xl font-black tracking-tight text-gray-100 uppercase transition-colors group-hover:text-gray-400/60">
+                    Ispahan&#39;s Site</div>
+            </a>
+            <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open" role="navigation" aria-expanded="false" aria-label="Main" aria-controls="menuItems">
+                <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                    <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+            
+            
+            <a class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="http://localhost:1313/" title="Home">
+                Home
+            </a>
+            
+            
+            
+            <a class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="http://localhost:1313/posts/" title="Posts">
+                Posts
+            </a>
+            
+            
+            
+            <a class="px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-white focus:text-white hover:bg-primary-600 focus:bg-primary-700 focus:outline-none focus:shadow-outline" href="http://localhost:1313/about/" title="About">
+                About
+            </a>
+            
+            
+            
+            <button id="theme-toggle" type="button" class="p-2 text-sm text-gray-500 rounded-lg md: dark:text-gray-400 md:hover:bg-gray-100 dark:md:hover:bg-gray-700 md:focus:outline-none md:focus:ring-4 md:focus:ring-gray-200 dark:md:focus:ring-gray-700 md:ml-2 xs:hidden">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+                    </path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-label="Dark or Light Mode" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            
+        </nav>
+    </div>
+</div>
+    
+<article>
+  <header class="mb-4 bg-primary-600">
+    <span class="py-96">
+      <h1 class="py-16 text-5xl font-black text-center text-white capitalize">
+        Modeling NYC Taxi Profitability using a Leontief-style Model
+      </h1>
+    </span>
+  </header>
+  <div class="max-w-4xl mx-auto mt-8 mb-2">
+    <div class="px-6">
+      
+    </div>
+  </div>
+  
+  <div class="max-w-2xl px-6 pt-6 pb-16 mx-auto prose dark:prose-invert dark:text-white">
+    <p>This blog post is joint work with <a href="https://www.aapelivuorinen.com/">Aapeli Vuorinen</a>, added here when I set up the blog.</p>
+<p>Here&rsquo;s a quick peek at the output of the model. The areas are shaded on a logarithmic scale according to their profitability. Hover over an area to see information about it.</p>
+<!-- raw HTML omitted -->
+<p><a href="preview.jpg">Click here</a> for a preview if the map doesn&rsquo;t load.</p>
+<p>It&rsquo;s interesting to see what one would expect: Manhattan is profitable and so are the areas around airports: JFK (the large area in the bottom right hand corner) and LaGuardia. Note that the profitability does not really translate to a real dollar amount, it&rsquo;s more an arbitrary metric.</p>
+<h2 id="background">Background</h2>
+<p>A friend of mine recently brought to my attention the cool open data available from the NYC Taxi &amp; Limousine Commission&rsquo;s <a href="https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page">site</a>. There is some quite interesting data there, and I ended up thinking about good ways to model the profitability of certain areas in NYC, trying to figure out what kind of model would capture this well. This post is a quick overview of the model I came up with and how I went about solving it.</p>
+<p>The data available on the TLC site consists of rows of data per-ride with fields including the dropoff and pickup date/location, the trip distance/duration/number of passengers, and the charge, fees, tip, etc. The dropoff and pickup locations are encoded as custom polygons that you can also download as a shapefile from their site.</p>
+<p>A somewhat natural question to ask given this per-trip data, is: what&rsquo;s the profitability of some location?</p>
+<p>There&rsquo;s quite a few ways of looking at this and trying to answer such an open ended question. For example, one may look at the time-series of how often a driver gets rides from different areas, and so on. However, the model I decided to go for was based rather on trying to understand how the destination area influenced the profitability of the current area. For example, suppose a taxi takes a passenger from Downtown Manhattan to somewhere in Brooklyn, but — for the sake of argument — riders in Downtown Manhattan tip a lot more than those in Brooklyn; then obviously this one-time trip may lead the driver to an area with low profitability. We want to capture this kind of dynamic and so chose a model where the profitability of a given area is influenced by the profitability of probable future locations.</p>
+<p>To get some rough metric for profitability, we let the profitability of a ride be the total fare divided by the duration in minutes. I had to do some cleaning to get rid of data with very low durations (due to inaccuracy in timing).</p>
+<h2 id="our-model">Our model</h2>
+<p>Let $\mathcal{S}$ be the set of (pickup/dropoff) areas, and let $\mathcal{T}$ be the set of all trips. For $i,j\in\mathcal{S}$, $\mathcal{T}_{i,j}$ to be the set of trips from $i$ to $j$ and $\mathcal{T}_i$ to be the set of trips originating from $i\in\mathcal{S}$. For a trip $e\in\mathcal{T}$, let $p_e$ be its profitability.</p>
+<p>We now define</p>
+<p>$
+q_{i,j}=\frac{1}{|T_{i,j}|}\sum_{e\in\mathcal{T}_{i,j}}p_e,
+$</p>
+<p>the (empirical) expected profitability of a trip from $i$ to $j$. Similarly we define</p>
+<p>$
+q_i=\frac{1}{|\mathcal{T}<em>i|}\sum</em>{e\in\mathcal{T}_i}p_e,
+$</p>
+<p>the expected profitability of a trip originating from $i$.</p>
+<p>Finally define</p>
+<p>$
+w_{i,j}=\frac{|\mathcal{T}_{i,j}|}{|\mathcal{T}_i|},
+$</p>
+<p>the expectation of the proportion of trips originating from $i$ that go to $j$.</p>
+<p>Now let $p_i$ for $i\in\mathcal{S}$ be the (expected) profitability of an area. We wish for the vector of profitabilities to satisfy</p>
+<p>$
+p_i=\sum_{j\in\mathcal{S}}w_{i,j}(q_{i,j}+\gamma p_j),
+$</p>
+<p>for some discounting factor $\gamma\in(0,1)$. This says that the profitability of an area is the weighted average (by proportion of trips) profitability of destination areas plus some discounting factor times the profitability of that area. So if an area is average but often leads to a very profitable area, then the first area is also pretty good in the scheme of things.</p>
+<p>Simplifying this, we can also write</p>
+<p>$
+p_i=q_i+\gamma\sum_{j\in S}w_{i,j}p_j,
+$</p>
+<p>so the profitability of an area is the average profitability of outgoing trips plus the discounted weighted average profitability of destination areas.</p>
+<p>Writing $\mathbf{W}$ as the matrix of $w_{i,j}$, and similarly $\mathbf{p}$ and $\mathbf{q}$ for the column vectors of $p_i$ and $q_i$, we get the matrix equation</p>
+<p>$
+\mathbf{p}=\mathbf{q}+\gamma\mathbf{W}\mathbf{p},
+$</p>
+<p>and rearranging, we have</p>
+<p>$
+\mathbf{p}=(\mathbf{I}-\gamma\mathbf{W})^{-1}\mathbf{q},
+$</p>
+<p>where $\mathbf{I}$ is the identity matrix of appropriate size and the inverse is the matrix inverse.</p>
+<p>Note that we need $\gamma&lt;1$ here (instead of having $\gamma=1$) because by construction, $\mathbf{W}$ is a <a href="https://en.wikipedia.org/wiki/Stochastic_matrix">stochastic matrix</a>, so $\mathbf{I}-\mathbf{W}$ has vanishing row sums, so the rows are linearly dependent and $\mathbf{I}-\mathbf{W}$ is singular. One can also see this intuitively from the model: in the presence of cycles — ways of starting from one area and then getting back there — the the weighted sum for $p_i$ gives an infinite recursion, and one can see that having no discounting would be problematic.</p>
+<p>This kind of model is called a <a href="https://en.wikipedia.org/wiki/Input%E2%80%93output_model">Leontief Input-Output model</a>.</p>
+<h2 id="the-nitty-gritty">The nitty gritty</h2>
+<p>I loaded the data into a Jupyter notebook and created a Pandas dataframe to hold the taxi data. After a few simple <code>groupby</code>s and <code>agg</code>s, I got the data I needed, put those in a Numpy matrix, and did a quick matrix inverse with <code>numpy.linalg.inv</code> to get the results.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py3" data-lang="py3"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># import and cleaning</span>
+</span></span><span style="display:flex;"><span>df_raw <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#34;green_tripdata_2020-01.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>df_raw[<span style="color:#e6db74">&#34;p&#34;</span>] <span style="color:#f92672">=</span> df_raw<span style="color:#f92672">.</span>total_amount <span style="color:#f92672">/</span> ((pd<span style="color:#f92672">.</span>to_datetime(df_raw<span style="color:#f92672">.</span>lpep_dropoff_datetime) <span style="color:#f92672">-</span> pd<span style="color:#f92672">.</span>to_datetime(df_raw<span style="color:#f92672">.</span>lpep_pickup_datetime)) <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>timedelta64(<span style="color:#ae81ff">60</span>, <span style="color:#e6db74">&#34;s&#34;</span>))
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> df_raw[[<span style="color:#e6db74">&#34;PULocationID&#34;</span>, <span style="color:#e6db74">&#34;DOLocationID&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span>]]<span style="color:#f92672">.</span>rename(columns<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;PULocationID&#34;</span>: <span style="color:#e6db74">&#34;pickup&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span>: <span style="color:#e6db74">&#34;p_e&#34;</span>, <span style="color:#e6db74">&#34;DOLocationID&#34;</span>: <span style="color:#e6db74">&#34;dropoff&#34;</span>})
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> df[(df<span style="color:#f92672">.</span>p_e <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;</span> <span style="color:#f92672">~</span>df<span style="color:#f92672">.</span>p_e<span style="color:#f92672">.</span>isna() <span style="color:#f92672">&amp;</span> (df<span style="color:#f92672">.</span>p_e <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list of all locations/areas, having dropoff areas with no pickups causes issues with the weight matrix</span>
+</span></span><span style="display:flex;"><span>areas <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>pickup<span style="color:#f92672">.</span>unique()
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> df[df<span style="color:#f92672">.</span>pickup<span style="color:#f92672">.</span>isin(areas) <span style="color:#f92672">&amp;</span> df<span style="color:#f92672">.</span>dropoff<span style="color:#f92672">.</span>isin(areas)]
+</span></span><span style="display:flex;"><span>ix_lookup <span style="color:#f92672">=</span> {val: ix <span style="color:#66d9ef">for</span> ix, val <span style="color:#f92672">in</span> enumerate(areas)}
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> len(areas)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># creating the T_{i,j} matrix</span>
+</span></span><span style="display:flex;"><span>Tij <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros([n, n])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i, j), val <span style="color:#f92672">in</span> df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#34;pickup&#34;</span>, <span style="color:#e6db74">&#34;dropoff&#34;</span>])<span style="color:#f92672">.</span>agg(<span style="color:#e6db74">&#34;count&#34;</span>)<span style="color:#f92672">.</span>p_e<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>    Tij[ix_lookup[i], ix_lookup[j]] <span style="color:#f92672">=</span> val
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># computing the W matrix...</span>
+</span></span><span style="display:flex;"><span>W <span style="color:#f92672">=</span> (Tij <span style="color:#f92672">/</span> Tij<span style="color:#f92672">.</span>sum(axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>T
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ...and q vector</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros([n])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i, val <span style="color:#f92672">in</span> df[[<span style="color:#e6db74">&#34;pickup&#34;</span>, <span style="color:#e6db74">&#34;p_e&#34;</span>]]<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#34;pickup&#34;</span>)<span style="color:#f92672">.</span>agg(<span style="color:#e6db74">&#34;mean&#34;</span>)<span style="color:#f92672">.</span>p_e<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>    q[ix_lookup[i]] <span style="color:#f92672">=</span> val
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set it pretty high</span>
+</span></span><span style="display:flex;"><span>gamma <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.6</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># compute p</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>inv(np<span style="color:#f92672">.</span>eye(n) <span style="color:#f92672">-</span> gamma <span style="color:#f92672">*</span> W) <span style="color:#f92672">@</span> q
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># save to csv</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;p.csv&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    f<span style="color:#f92672">.</span>writelines(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>areas[i]<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{</span>val<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">for</span> i, val <span style="color:#f92672">in</span> enumerate(p))
+</span></span></code></pre></div><p>I then imported the shapefile taxi zone areas into PostGIS with <code>ogr2ogr</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ogr2ogr -overwrite <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -nln areas <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -nlt PROMOTE_TO_MULTI <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -nlt MULTIPOLYGON <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -lco CREATE_TABLE<span style="color:#f92672">=</span>YES <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -lco GEOMETRY_NAME<span style="color:#f92672">=</span>geom <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  out.sql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  taxi_zones.shp
+</span></span><span style="display:flex;"><span>cat out.sql | psql
+</span></span></code></pre></div><p>Finally I exported the $\textbf{p}$ vector into PostGIS and did a spatial join against the shapefiles from T&amp;LC&rsquo;s site to get the following dataset.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">values</span>(
+</span></span><span style="display:flex;"><span>  locationId int <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  p real <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- \copy is a psql built in command that allows access to the local fs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">copy</span> <span style="color:#66d9ef">values</span>(locationId, p) <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;p.csv&#39;</span> <span style="color:#66d9ef">with</span> csv;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">into</span> taxi_profitability <span style="color:#66d9ef">from</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">select</span> geom, shape_area, <span style="color:#66d9ef">zone</span>, <span style="color:#66d9ef">values</span>.locationid, borough, p
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">from</span> areas
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">inner</span> <span style="color:#66d9ef">join</span> <span style="color:#66d9ef">values</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">on</span> <span style="color:#66d9ef">values</span>.locationId <span style="color:#f92672">=</span> areas.locationid
+</span></span><span style="display:flex;"><span>) t;
+</span></span></code></pre></div><p>Then export it into GeoJSON (we need to reproject to EPSG4326, I&rsquo;m not sure what the original SRS is, something NYC specific, it seems)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ogr2ogr -t_srs <span style="color:#e6db74">&#34;EPSG:4326&#34;</span> taxi_profitability.geojson PG:<span style="color:#e6db74">&#34;tables=taxi_profitability&#34;</span>
+</span></span></code></pre></div><p>And that&rsquo;s it, now just load it into a map or into QGIS and you can look at the pretty colors!</p>
+
+  </div>
+</article>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<script src="/js/darkmode.js" defer></script>
+<footer class="bg-gray-900">
+    <div class="max-w-md px-4 py-12 mx-auto overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <nav class="flex flex-wrap justify-center -mx-5 -my-2" aria-label="Footer">
+            
+            <div class="px-5 py-2">
+                <a href="http://localhost:1313/about/" class="text-base text-gray-400 hover:text-gray-300">About</a>
+            </div>
+            
+            <div class="px-5 py-2">
+                <a href="http://localhost:1313/categories/blog/" class="text-base text-gray-400 hover:text-gray-300">Blog</a>
+            </div>
+            
+            <div class="px-5 py-2">
+                <a href="http://localhost:1313/categories/news/" class="text-base text-gray-400 hover:text-gray-300">News</a>
+            </div>
+            
+            <div class="px-5 py-2">
+                <a href="http://localhost:1313/prose/" class="text-base text-gray-400 hover:text-gray-300">Prose</a>
+            </div>
+            
+            <div class="px-5 py-2">
+                <a href="http://localhost:1313/contact/" class="text-base text-gray-400 hover:text-gray-300">Contact</a>
+            </div>
+            
+        </nav>
+        <div class="flex justify-center mt-8 space-x-6">
+            
+            <a href="https://facebook.com/nusserstudios" class="text-gray-400 hover:text-gray-300">
+                <span class="sr-only">Facebook</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                          clip-rule="evenodd" />
+                </svg>
+            </a>
+            
+            
+            <a href="https://instagram.com/nusserstudios" class="text-gray-400 hover:text-gray-300">
+                <span class="sr-only">Instagram</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                          clip-rule="evenodd" />
+                </svg>
+            </a>
+            
+            
+            <a href="https://twitter.com/nusserstudios" class="text-gray-400 hover:text-gray-300">
+                <span class="sr-only">Twitter</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                          d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                </svg>
+            </a>
+            
+            
+            <a href="https://github.com/nusserstudios" class="text-gray-400 hover:text-gray-300">
+                <span class="sr-only">GitHub</span>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                          clip-rule="evenodd" />
+                </svg>
+            </a>
+            
+        </div>
+        <p class="mt-8 text-base text-center text-gray-400">&copy; 2025
+            Ispahan&#39;s Site. All rights
+            reserved.</p>
+        <p class="mt-2 text-base text-center text-gray-400">Made with &#x2764;&#xfe0f; by <a
+               href="https://nusserstudios.com" class="hover:underline hover:text-primary-600"><span
+                      class="font-black uppercase">Nusser</span> <span class="font-light uppercase">Studios.</span></a>
+        </p>
+    </div>
+</footer>
+</body>
+
+</html>
