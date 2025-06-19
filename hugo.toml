@@ -1,0 +1,36 @@
+baseURL = "https://ispahana.github.io"
+languageCode = "en-us"
+title = "Ispahan's Site"
+theme = "tailbliss"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  author = "Ispahan"
+  description = "A modern Hugo theme with Tailwind CSS"
+  showReadingTime = true
+  showWordCount = true
+  showPaginationLabels = true
+  
+  # Social links (optional - uncomment and update as needed)
+  # github = "https://github.com/ispahana"
+  # twitter = "https://twitter.com/yourusername"
+  # linkedin = "https://linkedin.com/in/yourusername"
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 20
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 30
