@@ -1,26 +1,45 @@
-baseURL = "https://ispahana.com"
+
+baseURL = "https://www.ispahana.com"
+
 languageCode = "en-us"
+
 title = "Ispahan's Site"
+
 theme = "PaperMod"
 
 [params]
+
   author = "Ispahan"
+
   description = "Welcome to my personal website"
+
   ShowReadingTime = true
+
   ShowShareButtons = true
+
   ShowPostNavLinks = true
 
 [[menu.main]]
+
   name = "Home"
+
   url = "/"
+
   weight = 10
 
 [[menu.main]]
+
   name = "Posts"
+
   url = "/posts/"
+
   weight = 20
 
 [[menu.main]]
+
   name = "About"
+
   url = "/about/"
+
   weight = 30
+
